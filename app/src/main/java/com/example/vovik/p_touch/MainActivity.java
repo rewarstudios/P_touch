@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         switch (actionMask) {
             case MotionEvent.ACTION_DOWN: // первое касание
                 inTouch = true;
-            case MotionEvent.ACTION_POINTER_DOWN: // последующие касания
+            case MotionEvent.ACTION_POINTER_DOWN: {// последующие касания
                 downPI = pointerIndex;
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
@@ -57,21 +57,15 @@ public class MainActivity extends Activity implements OnTouchListener {
                     }
                 }
                 break;
-
-            case MotionEvent.ACTION_UP: // прерывание последнего касания
+            }
+            case MotionEvent.ACTION_UP: {// прерывание последнего касания
                 inTouch = false;
 
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
-                    if (i < pointerCount) {
-                        if (event.getX(i) < 960) {
-                            a[i] = 1;
-                        } else {
-                            a[i] = 2;
-                        }
-                    }
                 }
-            case MotionEvent.ACTION_POINTER_UP: // прерывания касаний
+            }
+            case MotionEvent.ACTION_POINTER_UP: {// прерывания касаний
                 upPI = pointerIndex;
 
                 for (int i = 0; i < 2; i++) {
@@ -85,8 +79,8 @@ public class MainActivity extends Activity implements OnTouchListener {
                     }
                 }
                 break;
-
-            case MotionEvent.ACTION_MOVE: // движение
+            }
+            case MotionEvent.ACTION_MOVE: {// движение
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
                     if (i < pointerCount) {
@@ -97,8 +91,8 @@ public class MainActivity extends Activity implements OnTouchListener {
                         }
                     }
                 }
-
-                                break;
+                break;
+            }
         }
         sb.setLength(0);
         for (int i = 0 ; i < 2 ; i++)
