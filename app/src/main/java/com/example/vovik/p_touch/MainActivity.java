@@ -2,16 +2,20 @@ package com.example.vovik.p_touch;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import static android.R.attr.x;
 
 public class MainActivity extends Activity implements OnTouchListener {
-
+    int width;
     StringBuilder sb = new StringBuilder();
     TextView tv;
     int upPI = 0;
@@ -19,7 +23,9 @@ public class MainActivity extends Activity implements OnTouchListener {
     int[] a = new int[2];
     boolean inTouch = false;
     String result = "";
-    Point size = new Point();
+
+
+
 
     /** Called when the activity is first created. */
     @Override
@@ -30,6 +36,19 @@ public class MainActivity extends Activity implements OnTouchListener {
         tv.setTextSize(30);
         tv.setOnTouchListener(this);
         setContentView(tv);
+        Point size = new Point();
+        WindowManager w = getWindowManager();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            w.getDefaultDisplay().getSize(size);
+
+            width = size.x;
+         }
+         else
+            {
+            Display d = w.getDefaultDisplay();
+            width = d.getWidth();
+        }
     }
 
     @Override
@@ -49,7 +68,7 @@ public class MainActivity extends Activity implements OnTouchListener {
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
                     if (i < pointerCount) {
-                        if (event.getX(i) < 960) {
+                        if (event.getX(i) < width / 2) {
                             a[i] = 1;
                         } else {
                             a[i] = 2;
@@ -71,7 +90,7 @@ public class MainActivity extends Activity implements OnTouchListener {
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
                     if (i < pointerCount) {
-                        if (event.getX(i) < 960) {
+                        if (event.getX(i) < width / 2) {
                             a[i] = 1;
                         } else {
                             a[i] = 2;
@@ -84,7 +103,7 @@ public class MainActivity extends Activity implements OnTouchListener {
                 for (int i = 0; i < 2; i++) {
                     a[i] = 0;
                     if (i < pointerCount) {
-                        if (event.getX(i) < 960) {
+                        if (event.getX(i) < width / 2) {
                             a[i] = 1;
                         } else {
                             a[i] = 2;
